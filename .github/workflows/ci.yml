@@ -34,3 +34,23 @@ jobs:
       with:
         name: weather-ai-bot-jar
         path: target/*.jar
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: weather-ai-bot-jar
+    
+    - name: Deploy to Render
+      uses: render-com/render-action@v1
+      with:
+        api-key: ${{ secrets.RENDER_API_KEY }}
+        service-name: weather-ai-bot
+        file: render.yaml
+      

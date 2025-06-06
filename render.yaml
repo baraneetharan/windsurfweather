@@ -11,4 +11,3 @@ services:
         from: WEATHERAPI_API_KEY
       - key: SERVER_PORT
         value: "8080"
-    healthCheckPath: /api/weather/health
